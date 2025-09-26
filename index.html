@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphic Designer Portfolio</title>
+    <style>
+        body {
+            background: #222;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 2rem 0 1rem 0;
+        }
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .gallery-item {
+            background: #333;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+        }
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            height: 300px;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+        .caption {
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.1rem;
+            background: rgba(0,0,0,0.7);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Graphic Design Portfolio</h1>
+        <p>Explore my creative works below</p>
+    </header>
+    <div class="gallery" id="gallery"></div>
+    <script>
+        // List of image file extensions
+        const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
+
+        // Fetch all images from the main folder
+        async function fetchImages() {
+            // Try to get the list of files in the main folder
+            // This requires server-side support (e.g., an API or directory listing)
+            // For demonstration, we'll use a hardcoded list. Replace with dynamic code as needed.
+            const files = [
+                'design1.jpg',
+                'design2.png',
+                'design3.webp',
+                'poster1.jpg',
+                'logo1.svg'
+                // Add more image filenames here
+            ];
+
+            // Filter image files
+            return files.filter(file => {
+                const ext = file.split('.').pop().toLowerCase();
+                return imageExtensions.includes(ext);
+            });
+        }
+
+        function createGallery(images) {
+            const gallery = document.getElementById('gallery');
+            images.forEach(img => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `
+                    <img src="${img}" alt="Portfolio Image">
+                    <div class="caption">${img}</div>
+                `;
+                gallery.appendChild(item);
+            });
+        }
+
+        // Main
+        fetchImages().then(createGallery);
+    </script>
+</body>
+</html>
